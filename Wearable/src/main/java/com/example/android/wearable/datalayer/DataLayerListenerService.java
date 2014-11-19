@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.datalayer;
+package com.example.android.wearable.datalayer;
 
 import android.content.Intent;
 import android.net.Uri;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.android.datalayer;
+package com.example.android.wearable.datalayer;
 
-import static com.example.android.datalayer.DataLayerListenerService.LOGD;
+import static com.example.android.wearable.datalayer.DataLayerListenerService.LOGD;
 
 import android.app.Activity;
 import android.content.Context;
