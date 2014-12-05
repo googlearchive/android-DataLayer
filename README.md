@@ -1,9 +1,27 @@
 Android DataLayer Sample
 ===================================
 
-You can cause the wearable to start an activity by pressing a button in the
-companion app UI. You can also take a picture on the companion device, which will be transmitted as
-an Asset for display on the wearable.
+This sample demonstrates how to work with a WearableListenerService,
+to produce and consume DataEvents and effectively work with the DataLayer.
+
+Introduction
+------------
+
+This sample demonstrates how to make a handheld and an Android Wear device communicate
+using the [DataApi][2].
+It does this by sending a picture between connected devices.
+
+An Activity is being used for both the connected devices which implement their parts of
+the required interfaces.
+
+It showcases how to use an [WearableListenerService][1] to consume DataEvents
+as well as implementations for various required listeners when using the [DataApi][2],
+[MessageApi][3] and [NodeApi][4].
+
+[1]: https://developer.android.com/reference/com/google/android/gms/wearable/WearableListenerService.html
+[2]: https://developer.android.com/reference/com/google/android/gms/wearable/DataApi.html
+[3]: https://developer.android.com/reference/com/google/android/gms/wearable/MessageApi.html
+[4]: https://developer.android.com/reference/com/google/android/gms/wearable/NodeApi.html
 
 Pre-requisites
 --------------
@@ -11,6 +29,11 @@ Pre-requisites
 - Android SDK v21
 - Android Build Tools v21.1.1
 - Android Support Repository
+
+Screenshots
+-------------
+
+<img src="screenshots/phone_image.png" height="400" alt="Screenshot"/> <img src="screenshots/wearable_background_image.png" height="400" alt="Screenshot"/> 
 
 Getting Started
 ---------------
