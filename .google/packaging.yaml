@@ -13,7 +13,7 @@ github:       android-DataLayer
 level:        ADVANCED
 icon:         Application/src/main/res/drawable-xxhdpi/ic_launcher.png
 apiRefs:
-    - com.google.android.gms.wearable.DataApi
-    - com.google.android.gms.wearable.DataEvent
-    - com.google.android.gms.wearable.WearableListenerService
+    - gms:com.google.android.gms.wearable.DataApi
+    - gms:com.google.android.gms.wearable.DataEvent
+    - gms:com.google.android.gms.wearable.WearableListenerService
 license: apache2
