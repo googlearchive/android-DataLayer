@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
@@ -27,8 +27,8 @@ dependencies {
 
 
 
-    compile 'com.google.android.gms:play-services-wearable:11.6.0'
-    compile 'com.android.support:support-v13:27.0.0'
+    compile 'com.google.android.gms:play-services-wearable:11.8.0'
+    compile 'com.android.support:support-v13:27.0.2'
 
     provided 'com.google.android.wearable:wearable:2.1.0'
 
@@ -48,7 +48,7 @@ android {
 
         compileSdkVersion 27
 
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "27.0.2"
 
     defaultConfig {
         versionCode 1
@@ -56,8 +56,9 @@ android {
 
         minSdkVersion 18
 
-        targetSdkVersion 25
+        targetSdkVersion 26
 
+        multiDexEnabled true
 
     }
 
