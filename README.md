@@ -8,7 +8,7 @@ to produce and consume DataEvents and effectively work with the DataLayer.
 Introduction
 ------------
 
-This sample demonstrates how to make a handheld and an Android Wear device communicate
+This sample demonstrates how to make a handheld and an Wear device communicate
 using the [DataApi][2].
 It does this by sending a picture between connected devices.
 
@@ -28,7 +28,7 @@ Pre-requisites
 --------------
 
 - Android SDK 27
-- Android Build Tools v27.0.2
+- Android Build Tools v27.0.3
 - Android Support Repository
 
 Screenshots
