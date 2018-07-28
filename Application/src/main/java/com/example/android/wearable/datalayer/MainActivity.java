@@ -67,13 +67,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Receives its own events using a listener API designed for foreground activities. Updates a data
- * item every second while it is open. Also allows user to take a photo and send that as an asset
- * to the paired wearable.
+ * item every second while it is open. Also allows user to take a photo and send that as an asset to
+ * the paired wearable.
  */
-public class MainActivity extends Activity implements
-        DataClient.OnDataChangedListener,
-        MessageClient.OnMessageReceivedListener,
-        CapabilityClient.OnCapabilityChangedListener {
+public class MainActivity extends Activity
+        implements DataClient.OnDataChangedListener,
+                MessageClient.OnMessageReceivedListener,
+                CapabilityClient.OnCapabilityChangedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -118,8 +118,9 @@ public class MainActivity extends Activity implements
     @Override
     public void onResume() {
         super.onResume();
-        mDataItemGeneratorFuture = mGeneratorExecutor.scheduleWithFixedDelay(
-                new DataItemGenerator(), 1, 5, TimeUnit.SECONDS);
+        mDataItemGeneratorFuture =
+                mGeneratorExecutor.scheduleWithFixedDelay(
+                        new DataItemGenerator(), 1, 5, TimeUnit.SECONDS);
 
         mStartActivityBtn.setEnabled(true);
         mSendPhotoBtn.setEnabled(mCameraSupported);
@@ -129,8 +130,7 @@ public class MainActivity extends Activity implements
         Wearable.getDataClient(this).addListener(this);
         Wearable.getMessageClient(this).addListener(this);
         Wearable.getCapabilityClient(this)
-                .addListener(
-                        this, Uri.parse("wear://"), CapabilityClient.FILTER_REACHABLE);
+                .addListener(this, Uri.parse("wear://"), CapabilityClient.FILTER_REACHABLE);
     }
 
     @Override
@@ -168,9 +168,13 @@ public class MainActivity extends Activity implements
     }
 
     @Override
-    public void onMessageReceived(final MessageEvent messageEvent) {
-        LOGD(TAG, "onMessageReceived() A message from watch was received:"
-                + messageEvent.getRequestId() + " " + messageEvent.getPath());
+    public void onMessageReceived(MessageEvent messageEvent) {
+        LOGD(
+                TAG,
+                "onMessageReceived() A message from watch was received:"
+                        + messageEvent.getRequestId()
+                        + " "
+                        + messageEvent.getPath());
 
         mDataItemListAdapter.add(new Event("Message from watch", messageEvent.toString()));
     }
@@ -182,13 +186,11 @@ public class MainActivity extends Activity implements
         mDataItemListAdapter.add(new Event("onCapabilityChanged", capabilityInfo.toString()));
     }
 
-    /**
-     * Sets up UI components and their callback handlers.
-     */
+    /** Sets up UI components and their callback handlers. */
     private void setupViews() {
-        mSendPhotoBtn = (Button) findViewById(R.id.sendPhoto);
-        mThumbView = (ImageView) findViewById(R.id.imageView);
-        mDataItemList = (ListView) findViewById(R.id.data_item_list);
+        mSendPhotoBtn = findViewById(R.id.sendPhoto);
+        mThumbView = findViewById(R.id.imageView);
+        mDataItemList = findViewById(R.id.data_item_list);
         mStartActivityBtn = findViewById(R.id.start_wearable_activity);
     }
 
@@ -202,9 +204,7 @@ public class MainActivity extends Activity implements
         }
     }
 
-    /**
-     * Sends an RPC to start a fullscreen Activity on the wearable.
-     */
+    /** Sends an RPC to start a fullscreen Activity on the wearable. */
     public void onStartWearableActivityClick(View view) {
         LOGD(TAG, "Generating RPC");
 
@@ -234,8 +234,8 @@ public class MainActivity extends Activity implements
     }
 
     /**
-     * Dispatches an {@link android.content.Intent} to take a photo. Result will be returned back
-     * in onActivityResult().
+     * Dispatches an {@link android.content.Intent} to take a photo. Result will be returned back in
+     * onActivityResult().
      */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -279,12 +279,13 @@ public class MainActivity extends Activity implements
 
         Task<DataItem> dataItemTask = Wearable.getDataClient(this).putDataItem(request);
 
-        dataItemTask.addOnSuccessListener(new OnSuccessListener<DataItem>() {
-            @Override
-            public void onSuccess(DataItem dataItem) {
-                LOGD(TAG, "Sending image was successful: " + dataItem);
-            }
-        });
+        dataItemTask.addOnSuccessListener(
+                new OnSuccessListener<DataItem>() {
+                    @Override
+                    public void onSuccess(DataItem dataItem) {
+                        LOGD(TAG, "Sending image was successful: " + dataItem);
+                    }
+                });
     }
 
     @WorkerThread
@@ -301,7 +302,6 @@ public class MainActivity extends Activity implements
 
             for (Node node : nodes) {
                 results.add(node.getId());
-
             }
 
         } catch (ExecutionException exception) {
@@ -314,18 +314,14 @@ public class MainActivity extends Activity implements
         return results;
     }
 
-    /**
-     * As simple wrapper around Log.d
-     */
+    /** As simple wrapper around Log.d */
     private static void LOGD(final String tag, String message) {
         if (Log.isLoggable(tag, Log.DEBUG)) {
             Log.d(tag, message);
         }
     }
 
-    /**
-     * A View Adapter for presenting the Event objects in a list
-     */
+    /** A View Adapter for presenting the Event objects in a list */
     private static class DataItemAdapter extends ArrayAdapter<Event> {
 
         private final Context mContext;
@@ -340,8 +336,8 @@ public class MainActivity extends Activity implements
             ViewHolder holder;
             if (convertView == null) {
                 holder = new ViewHolder();
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE);
+                LayoutInflater inflater =
+                        (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(android.R.layout.two_line_list_item, null);
                 convertView.setTag(holder);
                 holder.text1 = (TextView) convertView.findViewById(android.R.id.text1);
@@ -384,9 +380,7 @@ public class MainActivity extends Activity implements
         }
     }
 
-    /**
-     * Generates a DataItem based on an incrementing count.
-     */
+    /** Generates a DataItem based on an incrementing count. */
     private class DataItemGenerator implements Runnable {
 
         private int count = 0;

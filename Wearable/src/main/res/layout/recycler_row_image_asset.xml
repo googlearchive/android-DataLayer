@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2014 The Android Open Source Project
+<!-- Copyright (C) 2018 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,16 +13,16 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.wear.widget.WearableRecyclerView
-        android:id="@+id/recycler_view"
+    <ImageView
+        android:id="@+id/image"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.wear.widget.WearableRecyclerView>
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>
