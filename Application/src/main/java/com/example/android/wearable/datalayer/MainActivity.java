@@ -98,6 +98,7 @@ public class MainActivity extends Activity
     // Send DataItems.
     private ScheduledExecutorService mGeneratorExecutor;
     private ScheduledFuture<?> mDataItemGeneratorFuture;
+    private static boolean hasConnectedWearNodes = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,13 +126,20 @@ public class MainActivity extends Activity
         mStartActivityBtn.setEnabled(true);
         mSendPhotoBtn.setEnabled(mCameraSupported);
 
+
         // Instantiates clients without member variables, as clients are inexpensive to create and
         // won't lose their listeners. (They are cached and shared between GoogleApi instances.)
         Wearable.getDataClient(this).addListener(this);
         Wearable.getMessageClient(this).addListener(this);
         Wearable.getCapabilityClient(this)
                 .addListener(this, Uri.parse("wear://"), CapabilityClient.FILTER_REACHABLE);
+        if (!hasConnectedWearNodes) {
+            // check at the beginning if there is wearable nodes connected to the phone node
+            new FetchAsyncCapabilityInfoTask(this).execute();
+        }
     }
+
+
 
     @Override
     public void onPause() {
@@ -182,7 +190,11 @@ public class MainActivity extends Activity
     @Override
     public void onCapabilityChanged(final CapabilityInfo capabilityInfo) {
         LOGD(TAG, "onCapabilityChanged: " + capabilityInfo);
-
+        if (capabilityInfo.getNodes().isEmpty()) {
+            hasConnectedWearNodes = false;
+        } else {
+            hasConnectedWearNodes = true;
+        }
         mDataItemListAdapter.add(new Event("onCapabilityChanged", capabilityInfo.toString()));
     }
 
@@ -380,6 +392,33 @@ public class MainActivity extends Activity
         }
     }
 
+    private class FetchAsyncCapabilityInfoTask extends AsyncTask<Void, Void, Void> {
+        private Context mContext;
+        public FetchAsyncCapabilityInfoTask(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... args) {
+            Task<CapabilityInfo> capabilityInfoTask = Wearable.getCapabilityClient(mContext).getCapability("capability_1", CapabilityClient.FILTER_REACHABLE);
+            try {
+                CapabilityInfo capabilityInfo;
+                capabilityInfo = Tasks.await(capabilityInfoTask);
+                if (capabilityInfo != null && !capabilityInfo.getNodes().isEmpty()) {
+                    MainActivity.hasConnectedWearNodes = true;
+                    LOGD(TAG + "FetchAsyncCapabilityInfoTask", capabilityInfo.toString());
+                } else {
+                    MainActivity.hasConnectedWearNodes = false;
+                }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     /** Generates a DataItem based on an incrementing count. */
     private class DataItemGenerator implements Runnable {
 
@@ -387,6 +426,9 @@ public class MainActivity extends Activity
 
         @Override
         public void run() {
+            if (!hasConnectedWearNodes) {
+                return;
+            }
             PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(COUNT_PATH);
             putDataMapRequest.getDataMap().putInt(COUNT_KEY, count++);
 
