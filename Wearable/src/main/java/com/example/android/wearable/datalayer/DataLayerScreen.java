@@ -16,7 +16,8 @@
 package com.example.android.wearable.datalayer;
 
 import android.graphics.Bitmap;
-import android.support.v7.widget.RecyclerView.ViewHolder;
+
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 /**
  * Classes representing data used for each custom {@link ViewHolder} in {@link

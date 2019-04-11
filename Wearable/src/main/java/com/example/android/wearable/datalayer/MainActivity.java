@@ -22,17 +22,22 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.wear.ambient.AmbientModeSupport;
-import android.support.wear.widget.WearableRecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.wear.ambient.AmbientModeSupport;
+import androidx.wear.widget.WearableRecyclerView;
+
+import com.example.android.wearable.datalayer.DataLayerScreen.CapabilityDiscoveryData;
+import com.example.android.wearable.datalayer.DataLayerScreen.DataLayerScreenData;
+import com.example.android.wearable.datalayer.DataLayerScreen.EventLoggingData;
+import com.example.android.wearable.datalayer.DataLayerScreen.ImageAssetData;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -47,11 +52,6 @@ import com.google.android.gms.wearable.MessageClient;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
-
-import com.example.android.wearable.datalayer.DataLayerScreen.CapabilityDiscoveryData;
-import com.example.android.wearable.datalayer.DataLayerScreen.DataLayerScreenData;
-import com.example.android.wearable.datalayer.DataLayerScreen.EventLoggingData;
-import com.example.android.wearable.datalayer.DataLayerScreen.ImageAssetData;
 
 import java.io.InputStream;
 import java.util.ArrayList;

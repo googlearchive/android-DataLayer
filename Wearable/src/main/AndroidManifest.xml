@@ -17,8 +17,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.example.android.wearable.datalayer" >
 
-    <uses-sdk android:minSdkVersion="23"
-              android:targetSdkVersion="26" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
